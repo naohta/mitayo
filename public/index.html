@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>みたよ！</title>
+  <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  <!--[if lt IE 9]><script src="html5shiv.js"></script><![endif]-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <!--<link href="index.css" rel="stylesheet" >-->
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/jquery-ui.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/i18n/jquery-ui-i18n.min.js"></script>
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/themes/redmond/jquery-ui.css">
+</head>
+<body>
+  <h1> みたよ！<h1>
+  <h3>みたよ！は、落とし物や忘れ物を、持ち主に届けるためのウェブサイトです。</h3>
+  <div id="map_canvas" style="height:500px;width:100%;"></div>
+  <script>
+    function initialize() {
+      var latlng = new google.maps.LatLng(35.681382, 139.766084);
+      var myOptions = {
+        zoom: 15,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      map = new google.maps.Map($('#map_canvas')[0], myOptions);
+      mitayo = new google.maps.Marker({
+        position:null,
+        map:map
+      });
+    }
+    initialize();
+  </script>  
+  <script>
+    google.maps.event.addListener(map,"click",function(arg){
+      mitayo.setPosition(arg.latLng);
+      var window = new google.maps.InfoWindow({
+        content:"ここで見たよ。"
+      });      
+      window.open(map,mitayo);
+      console.log(window);
+
+    });
+  </script>
+</body>
+
